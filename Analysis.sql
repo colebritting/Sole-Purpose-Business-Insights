@@ -25,7 +25,7 @@ CSV HEADER;
 SELECT * FROM sole_purpose
 LIMIT 5;
 
---Checking revenue and profits by different selling platform (ACH being local with bank transfers)
+--Checking revenue and profits by different selling platform (ACH being direct to consumer)
 
 SELECT sold_through, SUM(sale_price), SUM(profit) FROM sole_purpose
 GROUP BY sold_through;
