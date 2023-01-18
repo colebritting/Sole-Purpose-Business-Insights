@@ -1,5 +1,7 @@
 --Creating my table
 
+DROP TABLE IF EXISTS sole_purpose;
+
 CREATE TABLE sole_purpose (
 	
 	product VARCHAR(50),
