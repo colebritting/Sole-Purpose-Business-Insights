@@ -50,7 +50,7 @@ GROUP BY sold_through;
 
 --Checking % of profit and how many sales with each medium
 
-SELECT sold_through, COUNT(*), (SUM(profit)/SUM(sale_price)) as profit_percent FROM sole_purpose
+SELECT sold_through, COUNT(*), (AVG(profit/purchase_price)) as profit_percent FROM sole_purpose
 GROUP BY sold_through;
 
 --Checking all values after April, noticing more formatting issues (somes dates are 2023, instead of 2022)
@@ -105,14 +105,14 @@ GROUP BY sold_through;
 
 CREATE VIEW before_may as
 SELECT sold_through, COUNT(*) as before_count, 
-(SUM(profit)/SUM(purchase_price))*100 as before_profit_percent, SUM(profit) as before_profit
+(AVG(profit/purchase_price))*100 as before_profit_percent, SUM(profit) as before_profit
 FROM sole_purpose
 WHERE sale_date < '2022-05-01'
 GROUP BY sold_through;
 
 CREATE VIEW after_may as
 SELECT sold_through, COUNT(*) as after_count, 
-(SUM(profit)/SUM(purchase_price))*100 as after_profit_percent, SUM(profit) as after_profit
+(AVG(profit/purchase_price))*100 as after_profit_percent, SUM(profit) as after_profit
 FROM sole_purpose
 WHERE sale_date > '2022-05-01'
 GROUP BY sold_through;
@@ -132,8 +132,8 @@ ON before_may.sold_through = after_may.sold_through
 SELECT sold_through, (before_count*100/SUM(before_count) OVER ()), 
 (after_count*100/SUM(after_count) OVER ()) FROM profit_count;
 
---Looking at how profit margin changed for each category, and it increased in both (eBay more)
---This tells us that the products we sold were more profitable in our second timeframe.
+--Looking at how profit margin changed for each category, and it increased in eBay and decreased slightly in DTC
+--This tells us that the products we sold were more profitable in our second timeframe overall (slight increase in DTC but large in eBay)
 --We are looking to see if our total profit margin will increase because we are selling more products through one medium.
 --This is telling us that we are going to see some increase outside of that, simply because
 --the products we sold were more profitable across the board. So we need to calculate for that (next query)
@@ -143,7 +143,7 @@ SELECT sold_through,
 FROM profit_count;
 
 --We are weighing the above increase in product profitability respective to how much they will increase our total profitability.
---This shows us our total profit margin will increase by about 2.7% (both categories added).
+--This shows us our total profit margin will increase by about 1.25% (both categories added).
 --The rest of our increase will come because we made a conscious effort to sell more DTC (direct to consumer).
 
 SELECT SUM(increase) FROM (SELECT sold_through, 
