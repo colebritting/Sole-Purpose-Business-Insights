@@ -161,7 +161,7 @@ WHERE sale_date > '2022-05-01')
 FROM sole_purpose
 WHERE sale_date < '2022-05-01') 
 
---Subtracting out the 2.7% increase in product profitability increase
+--Subtracting out the 1.25% increase in product profitability increase
 
 SELECT (SELECT (SUM(profit)/SUM(purchase_price))*100 
 FROM sole_purpose
@@ -177,7 +177,7 @@ WHERE sale_date < '2022-05-01')
 FROM profit_count) as m);
 
 --My business change - making an effort to sell more DTC instead of over platforms -
--- led to a 3.26% direct increase in profit margin.
+-- led to a 3.35% direct increase in profit margin.
 
 
 
