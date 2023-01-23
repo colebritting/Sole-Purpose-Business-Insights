@@ -18,7 +18,7 @@ CREATE TABLE sole_purpose (
 --Copying data in
 
 COPY sole_purpose 
-FROM 'C:\Users\Owner\Downloads\Job Portfolio\Sneaker Project'
+FROM 'C:\Users\Owner\Downloads\Job Portfolio\Sneaker Project\sole_purpose.csv'
 DELIMITER ','
 CSV HEADER;
 
